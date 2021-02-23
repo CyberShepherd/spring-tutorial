@@ -25,4 +25,14 @@ public class StudentController {
     public void addNewStudent(@RequestBody Student student){
         this.studentService.addNewStudent(student);
     }
+
+    @DeleteMapping
+    public void removeStudentByEmail(@RequestBody Student student){
+        studentService.removeStudent(student.getEmail());
+    }
+
+    @PutMapping
+    public void updateStudent(@RequestBody Student student){
+        studentService.updateStudent(student);
+    }
 }

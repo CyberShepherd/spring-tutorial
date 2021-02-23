@@ -6,3 +6,49 @@ Content-Type: application/json
   "email" : "gabriel.modz@op.pl",
   "dob" : "1994-05-21"
 }
+
+###
+
+POST http://localhost:8080/api/v1/student
+Content-Type: application/json
+
+{
+  "name" : "gabriel",
+  "email" : "gabriel.modz@onet.pl",
+  "dob" : "1994-05-21"
+}
+
+###
+
+PUT http://localhost:8080/api/v1/student
+Content-Type: application/json
+
+{
+  "id" : 2,
+  "name" : "gabriel",
+  "email" : "gabriel.modz@o2.pl",
+  "dob" : "1994-05-21"
+}
+
+###
+
+PUT http://localhost:8080/api/v1/student
+Content-Type: application/json
+
+{
+  "id" : 3,
+  "name" : "gabriel",
+  "email" : "gabriel.modz@o2.pl",
+  "dob" : "1994-05-21"
+}
+
+###
+
+DELETE http://localhost:8080/api/v1/student
+Content-Type: application/json
+
+{
+  "name" : "gabriel",
+  "email" : "gabriel.modz@op.pl",
+  "dob" : "1994-05-21"
+}
