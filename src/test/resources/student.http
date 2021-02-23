@@ -32,16 +32,20 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8080/api/v1/student
+PUT http://localhost:8080/api/v1/student/2?name=Maria&email=maria.evalavante@gmail.com
 Content-Type: application/json
 
-{
-  "id" : 3,
-  "name" : "gabriel",
-  "email" : "gabriel.modz@o2.pl",
-  "dob" : "1994-05-21"
-}
+###
+
+PUT http://localhost:8080/api/v1/student/2?email=gabriel.modz@op.pl
+Content-Type: application/json
+
+###
+
+PUT http://localhost:8080/api/v1/student/2?name=eva
+Content-Type: application/json
 
 ###
 
 DELETE http://localhost:8080/api/v1/student/1
+

@@ -4,9 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @RestController
 @RequestMapping(path = "/api/v1/student")
 public class StudentController {
@@ -32,8 +29,10 @@ public class StudentController {
         return studentService.removeStudent(id);
     }
 
-    @PutMapping
-    public ResponseEntity updateStudent(@RequestBody Student student){
-        return studentService.updateStudent(student);
+    @PutMapping(path = "/{id}")
+    public ResponseEntity updateStudent(@PathVariable Long id,
+                                        @RequestParam(required = false) String name,
+                                        @RequestParam(required = false) String email){
+        return studentService.updateStudent(id, name, email);
     }
 }

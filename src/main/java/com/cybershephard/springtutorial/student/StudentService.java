@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import static com.cybershephard.springtutorial.student.StudentLogic.validateEmail;
+import static com.cybershephard.springtutorial.student.StudentLogic.validateName;
+
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
@@ -29,11 +32,15 @@ public class StudentService {
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
-    public ResponseEntity updateStudent(Student student){
-        if(!isStudent(student.getId()))
+    @Transactional
+    public ResponseEntity updateStudent(Long id, String name, String email){
+        Optional<Student> optionalStudent = studentRepository.findById(id);
+        if(!optionalStudent.isPresent())
             return new ResponseEntity<String>("Student doesn't exist", HttpStatus.INTERNAL_SERVER_ERROR);
-        studentRepository.save(student);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        Student student = optionalStudent.get();
+        if(validateName(student.getName(), name)) student.setName(name);
+        if(validateEmail(student.getEmail(), email)) student.setEmail(email);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     public ResponseEntity removeStudent(String email){
@@ -46,7 +53,7 @@ public class StudentService {
     @Transactional
     public ResponseEntity removeStudent(Long id){
         if(!studentRepository.existsById(id)) return new ResponseEntity<String>("Student doesn't exist", HttpStatus.INTERNAL_SERVER_ERROR);
-        studentRepository.deleteStudentById(id);
+        studentRepository.deleteById(id);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
@@ -55,7 +62,7 @@ public class StudentService {
      * @param id
      * @return
      */
-    public boolean isStudent(Long id){
+    private boolean isStudent(Long id){
         Optional<Student> optionalStudent = studentRepository.findStudentById(id);
         if(optionalStudent.isPresent()) return true;
         else return false;
@@ -66,9 +73,11 @@ public class StudentService {
      * @param email
      * @return
      */
-    public boolean isStudent(String email){
+    private boolean isStudent(String email){
         Optional<Student> studentOptional = studentRepository.findStudentByEmail(email);
         if(studentOptional.isPresent()) return true;
         else return false;
     }
+
+
 }

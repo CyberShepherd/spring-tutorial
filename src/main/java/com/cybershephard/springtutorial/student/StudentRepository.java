@@ -10,6 +10,5 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     public Optional<Student> findStudentByEmail(String email);
     public Optional<Student> findStudentById(Long id);
-    public void deleteStudentById(Long id);
     public void deleteStudentByEmail(String email);
 }
