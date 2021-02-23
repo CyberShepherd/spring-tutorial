@@ -32,14 +32,17 @@ public class StudentService {
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
-    @Transactional
     public ResponseEntity updateStudent(Long id, String name, String email){
         Optional<Student> optionalStudent = studentRepository.findById(id);
         if(!optionalStudent.isPresent())
             return new ResponseEntity<String>("Student doesn't exist", HttpStatus.INTERNAL_SERVER_ERROR);
         Student student = optionalStudent.get();
+        optionalStudent = studentRepository.findStudentByEmail(email);
+        if(optionalStudent.isPresent())
+            return new ResponseEntity<String>("Email is taken", HttpStatus.INTERNAL_SERVER_ERROR);
         if(validateName(student.getName(), name)) student.setName(name);
         if(validateEmail(student.getEmail(), email)) student.setEmail(email);
+        studentRepository.save(student);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -1,10 +1,6 @@
 package com.cybershephard.springtutorial.student;
 
-import java.util.Optional;
-
 public class StudentLogic {
-
-
 
     /**
      * Validates the new name plus validates against previous one
@@ -14,7 +10,7 @@ public class StudentLogic {
      */
     public static boolean validateName(String oldName, String name){
         if(!validateNonNullableValue(name) || name.equals(oldName)) return false;
-        return true;
+        else return true;
     }
 
     /**
@@ -23,8 +19,8 @@ public class StudentLogic {
      * @return
      */
     public static boolean validateNonNullableValue(String input){
-        if(input.equals(null) || input.length() == 0) return false;
-        return true;
+        if(input == null || input.length() == 0) return false;
+        else return true;
     }
 
     /**
@@ -35,6 +31,6 @@ public class StudentLogic {
      */
     public static boolean validateEmail(String oldEmail, String email){
         if(!validateNonNullableValue(email) || email.equals(oldEmail))  return false;
-        return true;
+        else return true;
     }
 }
