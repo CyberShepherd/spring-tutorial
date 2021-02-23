@@ -1,6 +1,8 @@
 package com.cybershephard.springtutorial.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,29 +18,36 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public List<Student> getStudents(){
-        return studentRepository.findAll();
+    public ResponseEntity getStudents(){
+        return new ResponseEntity<List<Student>>(studentRepository.findAll(), HttpStatus.OK);
     }
 
-    public void addNewStudent(Student student){
-        if(isStudent(student.getEmail())) throw new IllegalStateException("Email taken");
+    public ResponseEntity addNewStudent(Student student){
+        if(isStudent(student.getEmail()))
+            return new ResponseEntity<String>("Email is taken", HttpStatus.INTERNAL_SERVER_ERROR);
         studentRepository.save(student);
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 
-    public void updateStudent(Student student){
-        if(!isStudent(student.getId())) throw new IllegalStateException("Student doesn't exist");
+    public ResponseEntity updateStudent(Student student){
+        if(!isStudent(student.getId()))
+            return new ResponseEntity<String>("Student doesn't exist", HttpStatus.INTERNAL_SERVER_ERROR);
         studentRepository.save(student);
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 
-    public void removeStudent(String email){
-        if(!isStudent(email)) throw new IllegalStateException("Student doesn't exist");
+    public ResponseEntity removeStudent(String email){
+        if(!isStudent(email))
+            return new ResponseEntity<String>("Student doesn't exist", HttpStatus.INTERNAL_SERVER_ERROR);
         studentRepository.deleteStudentByEmail(email);
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 
     @Transactional
-    public void removeStudent(Long id){
-        if(!studentRepository.existsById(id)) throw new IllegalStateException("Student doesn't exist");
+    public ResponseEntity removeStudent(Long id){
+        if(!studentRepository.existsById(id)) return new ResponseEntity<String>("Student doesn't exist", HttpStatus.INTERNAL_SERVER_ERROR);
         studentRepository.deleteStudentById(id);
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 
     /**

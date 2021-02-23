@@ -1,6 +1,7 @@
 package com.cybershephard.springtutorial.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -17,22 +18,22 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> getStudents(){
+    public ResponseEntity getStudents(){
         return studentService.getStudents();
     }
 
     @PostMapping
-    public void addNewStudent(@RequestBody Student student){
-        this.studentService.addNewStudent(student);
+    public ResponseEntity addNewStudent(@RequestBody Student student){
+        return this.studentService.addNewStudent(student);
     }
 
     @DeleteMapping(path = "/{id}")
-    public void removeStudentByEmail(@PathVariable Long id){
-        studentService.removeStudent(id);
+    public ResponseEntity removeStudentByEmail(@PathVariable Long id){
+        return studentService.removeStudent(id);
     }
 
     @PutMapping
-    public void updateStudent(@RequestBody Student student){
-        studentService.updateStudent(student);
+    public ResponseEntity updateStudent(@RequestBody Student student){
+        return studentService.updateStudent(student);
     }
 }
