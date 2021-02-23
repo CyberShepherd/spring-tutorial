@@ -44,11 +44,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8080/api/v1/student
-Content-Type: application/json
-
-{
-  "name" : "gabriel",
-  "email" : "gabriel.modz@op.pl",
-  "dob" : "1994-05-21"
-}
+DELETE http://localhost:8080/api/v1/student/1

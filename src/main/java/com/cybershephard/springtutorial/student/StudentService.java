@@ -2,6 +2,7 @@ package com.cybershephard.springtutorial.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,8 +35,9 @@ public class StudentService {
         studentRepository.deleteStudentByEmail(email);
     }
 
+    @Transactional
     public void removeStudent(Long id){
-        if(!isStudent(id)) throw new IllegalStateException("Student doesn't exist");
+        if(!studentRepository.existsById(id)) throw new IllegalStateException("Student doesn't exist");
         studentRepository.deleteStudentById(id);
     }
 

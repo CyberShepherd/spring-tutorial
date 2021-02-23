@@ -26,9 +26,9 @@ public class StudentController {
         this.studentService.addNewStudent(student);
     }
 
-    @DeleteMapping
-    public void removeStudentByEmail(@RequestBody Student student){
-        studentService.removeStudent(student.getEmail());
+    @DeleteMapping(path = "/{id}")
+    public void removeStudentByEmail(@PathVariable Long id){
+        studentService.removeStudent(id);
     }
 
     @PutMapping
