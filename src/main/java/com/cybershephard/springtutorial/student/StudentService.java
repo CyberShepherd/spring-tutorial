@@ -17,8 +17,10 @@ public class StudentService {
 
 //    TODO: remove insert
     public List<Student> getStudents(){
-        Student student = new Student(1L,"gabriel", "gabriel.m@op.pl", LocalDate.of(2000,10,1), 21);
-        studentRepository.save(student);
+        Student student1 = new Student("gabriel", "gabriel.m@op.pl", LocalDate.of(2000,10,1), 21);
+        Student student2 = new Student("flair", "flair.mail@op.pl", LocalDate.of(1996,4,12), 25);
+        List<Student> students = List.of(student1, student2);
+        studentRepository.saveAll(students);
         return studentRepository.findAll();
     }
 }
